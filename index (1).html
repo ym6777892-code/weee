@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Wedding Invitation | دعوة زفاف</title>
+  <meta name="description" content="You are invited to our wedding. Open the invitation for the date, venue and details. | أنتم مدعوون إلى حفل زفافنا.">
+  <meta name="theme-color" content="#faf6ee">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wedding Invitation | دعوة زفاف">
+  <meta property="og:description" content="You are invited to our wedding. | أنتم مدعوون إلى حفل زفافنا.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23faf6ee'/%3E%3Cpath d='M16 7l9 9-9 9-9-9z' fill='none' stroke='%23a98a58' stroke-width='1.5'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+/* ==========================================================================
+   Digital Wedding Invitation — styles
+   Mobile-first. Palette: ivory, beige, champagne, soft dark.
+   ========================================================================== */
+
+:root {
+  --ivory: #faf6ee;
+  --ivory-2: #f3ecdf;
+  --beige: #e9dfcc;
+  --champagne: #d6c19b;
+  --gold: #a98a58;
+  --ink: #2a2521;
+  --muted: #6f655a;
+  --dark: #25201c;
+  --line: rgba(169, 138, 88, .38);
+
+  --f-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --f-body: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+html[lang="ar"] {
+  --f-display: 'Amiri', 'Times New Roman', serif;
+  --f-body: 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body.is-locked { overflow: hidden; }
+
+[hidden] { display: none !important; }
+
+h1, h2, p, ol { margin: 0; }
+
+:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+main:focus { outline: none; }
+
+/* ---------- Loader ---------- */
+.loader {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  background: var(--ivory);
+  transition: opacity .7s var(--ease), visibility .7s;
+}
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader svg { width: 56px; height: 56px; overflow: visible; }
+.loader path {
+  fill: none; stroke: var(--gold); stroke-width: 1;
+  stroke-dasharray: 140; stroke-dashoffset: 140;
+  animation: draw 1.4s var(--ease) infinite alternate;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* ---------- Shared elements ---------- */
+.label, .eyebrow {
+  font-size: .72rem; font-weight: 400;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold);
+}
+html[lang="ar"] .label,
+html[lang="ar"] .eyebrow { letter-spacing: 0; text-transform: none; font-size: .95rem; }
+
+.eyebrow { margin-bottom: 1.6rem; }
+
+.orn { display: flex; align-items: center; justify-content: center; gap: .9rem; margin: 1.6rem 0; }
+.orn i { display: block; width: 52px; height: 1px; background: var(--line); }
+.orn b { display: block; width: 7px; height: 7px; border: 1px solid var(--gold); transform: rotate(45deg); }
+
+.seal {
+  position: relative; width: 84px; height: 84px; margin: 0 auto 1.8rem;
+  border: 1px solid var(--line); border-radius: 50%;
+  display: grid; place-items: center;
+}
+.seal::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--line); border-radius: 50%; }
+.seal i { width: 13px; height: 13px; border: 1px solid var(--gold); transform: rotate(45deg); }
+.seal--sm { width: 56px; height: 56px; margin-bottom: 1.6rem; }
+.seal--sm::before { inset: 5px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: .9rem 2.4rem;
+  font-family: var(--f-body); font-size: .78rem; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase; text-decoration: none;
+  color: var(--ink); background: transparent;
+  border: 1px solid var(--gold); border-radius: 0; cursor: pointer;
+  transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+html[lang="ar"] .btn { letter-spacing: 0; text-transform: none; font-size: 1rem; }
+.btn:hover { background: var(--ink); border-color: var(--ink); color: var(--ivory); }
+.btn:active { transform: scale(.98); }
+.btn--solid { background: var(--ink); border-color: var(--ink); color: var(--ivory); }
+.btn--solid:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+/* ---------- Cover ---------- */
+.cover { position: fixed; inset: 0; z-index: 90; overflow: hidden; visibility: hidden; }
+body.is-ready .cover { visibility: visible; }
+
+.panel {
+  position: absolute; top: 0; bottom: 0; width: 50.4%;
+  background: linear-gradient(180deg, #fcf9f2 0%, #f1e8d8 100%);
+  transition: transform 1.25s cubic-bezier(.7, 0, .2, 1) .35s;
+  will-change: transform;
+}
+.panel--l { left: 0; }
+.panel--r { right: 0; }
+
+/* hairline frame */
+.cover::after {
+  content: ""; position: absolute; inset: 14px; z-index: 3; pointer-events: none;
+  border: 1px solid var(--line);
+  transition: opacity .5s var(--ease);
+}
+
+.cover__content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 2rem 1.5rem; text-align: center;
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.cover__title {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(2.8rem, 12vw, 5rem); line-height: 1.02;
+  margin: 1.1rem 0 1.6rem;
+}
+.cover__title span { display: block; }
+.cover__title .alt { font-style: italic; color: var(--gold); }
+html[lang="ar"] .cover__title { line-height: 1.35; }
+html[lang="ar"] .cover__title .alt { font-style: normal; }
+.cover__names {
+  font-family: var(--f-display); font-size: 1.35rem; color: var(--muted);
+  margin: -.4rem 0 1.8rem;
+}
+.cover__content .btn { margin-top: .8rem; }
+
+body.is-ready .cover__content > * {
+  animation: rise 1s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * .12s + .15s);
+}
+.cover__content > :nth-child(1) { --i: 0; }
+.cover__content > :nth-child(2) { --i: 1; }
+.cover__content > :nth-child(3) { --i: 2; }
+.cover__content > :nth-child(4) { --i: 3; }
+.cover__content > :nth-child(5) { --i: 4; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+
+.cover.is-opening { pointer-events: none; }
+.cover.is-opening .cover__content { opacity: 0; transform: scale(.97); }
+.cover.is-opening::after { opacity: 0; }
+.cover.is-opening .panel--l { transform: translateX(-101%); box-shadow: 18px 0 50px rgba(42, 37, 33, .12); }
+.cover.is-opening .panel--r { transform: translateX(101%);  box-shadow: -18px 0 50px rgba(42, 37, 33, .12); }
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(5rem, 13vw, 8.5rem) 1.5rem; text-align: center; }
+.section__inner { max-width: 40rem; margin-inline: auto; }
+.section--beige { background: var(--ivory-2); }
+.section--dark { background: var(--dark); color: #efe6d6; }
+.section--dark .eyebrow { color: var(--champagne); }
+
+.h2 {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(2.1rem, 7.5vw, 3.3rem); line-height: 1.15; margin-bottom: 1rem;
+}
+
+/* Hero */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(120% 70% at 50% 0%, #fff 0%, var(--ivory) 55%, var(--ivory-2) 100%);
+}
+.names {
+  display: flex; flex-direction: column; align-items: center;
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(3.4rem, 16vw, 7.5rem); line-height: .98;
+  margin: .2em 0;
+}
+.names .amp { font-style: italic; color: var(--gold); font-size: .42em; line-height: 1.7; }
+html[lang="ar"] .names { line-height: 1.3; }
+html[lang="ar"] .names .amp { font-style: normal; }
+.lead {
+  max-width: 34rem; white-space: pre-line;
+  font-family: var(--f-display); font-size: clamp(1.25rem, 3.8vw, 1.6rem);
+  line-height: 1.65; color: var(--muted);
+}
+html[lang="ar"] .lead { line-height: 2; }
+
+.scroll-cue {
+  position: absolute; bottom: 1.8rem; left: 50%; width: 1px; height: 46px;
+  background: linear-gradient(var(--gold), transparent);
+  transform-origin: top; animation: cue 2.4s var(--ease) infinite;
+}
+@keyframes cue { 0% { transform: scaleY(0); opacity: 0; } 40% { opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* Date + countdown */
+.date-main {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(1.9rem, 6.8vw, 3rem); line-height: 1.25;
+}
+.time-main { margin-top: .7rem; letter-spacing: .2em; color: var(--champagne); font-weight: 400; }
+html[lang="ar"] .time-main { letter-spacing: 0; }
+
+.countdown {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 3rem; max-width: 30rem; margin-inline: auto;
+}
+.cd-unit { display: flex; flex-direction: column; align-items: center; padding: .3rem 0; border-inline-start: 1px solid rgba(214, 193, 155, .25); }
+.cd-unit:first-child { border: 0; }
+.cd-num {
+  font-family: var(--f-display); font-weight: 300; line-height: 1.1;
+  font-size: clamp(2.1rem, 9vw, 3.6rem); font-variant-numeric: tabular-nums;
+}
+.cd-label { margin-top: .35rem; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--champagne); }
+html[lang="ar"] .cd-label { letter-spacing: 0; text-transform: none; font-size: .85rem; }
+
+/* Venue */
+.addr { max-width: 26rem; margin: 0 auto 2.2rem; color: var(--muted); white-space: pre-line; }
+
+/* Schedule */
+.schedule { list-style: none; padding: 0; max-width: 30rem; margin: 0 auto; text-align: start; }
+.schedule li {
+  display: grid; grid-template-columns: 7.5rem 1fr; gap: 1.2rem; align-items: baseline;
+  padding: 1.15rem 0; border-bottom: 1px solid var(--line);
+}
+.schedule li:first-child { border-top: 1px solid var(--line); }
+.schedule .t { font-size: .82rem; letter-spacing: .14em; color: var(--gold); font-weight: 400; }
+html[lang="ar"] .schedule .t { letter-spacing: 0; font-size: .95rem; }
+.schedule .d { font-family: var(--f-display); font-size: 1.35rem; line-height: 1.35; }
+.schedule li.solo { grid-template-columns: 1fr; text-align: center; }
+
+/* Personal message */
+.note {
+  white-space: pre-line; font-family: var(--f-display); font-style: italic;
+  font-size: clamp(1.4rem, 4.6vw, 2rem); line-height: 1.6;
+}
+html[lang="ar"] .note { font-style: normal; line-height: 2; }
+
+/* RSVP */
+.rsvp-text { white-space: pre-line; font-size: 1.05rem; line-height: 1.9; }
+.rsvp-text a, .section a.link { color: var(--champagne); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* Setup notice (visible only while the config is empty) */
+.setup { background: var(--ivory-2); min-height: 40vh; display: grid; align-content: center; }
+.setup__text { color: var(--muted); }
+
+/* ---------- Floating controls ---------- */
+.controls {
+  position: fixed; z-index: 50;
+  inset-inline-end: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  animation: rise .9s var(--ease) both;
+}
+.ctrl {
+  display: grid; place-items: center; min-width: 44px; height: 44px; padding: 0;
+  font-family: var(--f-body); font-size: .8rem; font-weight: 400; color: var(--ink);
+  background: rgba(250, 246, 238, .82); border: 1px solid var(--line); border-radius: 22px;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(42, 37, 33, .12); cursor: pointer;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.ctrl:hover { background: #fff; }
+.ctrl:active { transform: scale(.94); }
+.ctrl--lang { padding: 0 14px; }
+
+.eq { display: flex; align-items: center; gap: 3px; height: 16px; position: relative; }
+.eq span { width: 2px; height: 5px; background: var(--ink); border-radius: 2px; transform-origin: center; }
+.ctrl--music.is-playing .eq span { animation: eq 1s ease-in-out infinite; }
+.ctrl--music.is-playing .eq span:nth-child(2) { animation-delay: .2s; }
+.ctrl--music.is-playing .eq span:nth-child(3) { animation-delay: .4s; }
+@keyframes eq { 0%, 100% { height: 5px; } 50% { height: 16px; } }
+.ctrl--music:not(.is-playing) .eq::after {
+  content: ""; position: absolute; left: -4px; right: -4px; top: 50%; height: 1px;
+  background: var(--ink); transform: rotate(-38deg);
+}
+
+/* ---------- Reveal ---------- */
+.reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---------- Larger screens ---------- */
+@media (min-width: 768px) {
+  .cover::after { inset: 22px; }
+  .controls { inset-inline-end: 28px; bottom: 28px; }
+  .schedule li { grid-template-columns: 9rem 1fr; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+  <noscript><style>.loader{display:none}.cover{display:none}body.is-locked{overflow:auto}</style></noscript>
+</head>
+<body class="is-locked">
+
+  <!-- Loading screen -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg viewBox="0 0 56 56"><path d="M28 4 L52 28 L28 52 L4 28 Z"/></svg>
+  </div>
+
+  <!-- Invitation cover -->
+  <div class="cover" id="cover">
+    <div class="panel panel--l"></div>
+    <div class="panel panel--r"></div>
+    <div class="cover__content" id="coverContent">
+      <div class="seal"><i></i></div>
+      <p class="label" data-i18n="coverLabel"></p>
+      <h1 class="cover__title">
+        <span data-i18n="coverTitle1"></span>
+        <span class="alt" data-i18n="coverTitle2"></span>
+      </h1>
+      <p class="cover__names" id="coverNames" hidden></p>
+      <button class="btn btn--solid" id="openBtn" type="button" data-i18n="open"></button>
+    </div>
+  </div>
+
+  <!-- Invitation -->
+  <main id="invitation" inert tabindex="-1">
+
+    <section class="section hero" id="hero" hidden>
+      <p class="eyebrow reveal" data-i18n="ofWedding"></p>
+      <h2 class="names reveal" id="names" style="--d:.1s">
+        <span id="groom"></span>
+        <span class="amp" id="amp" aria-hidden="true">&amp;</span>
+        <span id="bride"></span>
+      </h2>
+      <div class="orn reveal" style="--d:.2s" aria-hidden="true"><i></i><b></b><i></i></div>
+      <p class="lead reveal" id="invitationMessage" style="--d:.3s" hidden></p>
+      <span class="scroll-cue" id="scrollCue" aria-hidden="true" hidden></span>
+    </section>
+
+    <section class="section section--dark" id="date" hidden>
+      <div class="section__inner">
+        <p class="eyebrow reveal" data-i18n="saveTheDate"></p>
+        <p class="date-main reveal" id="dateText" style="--d:.1s" hidden></p>
+        <p class="time-main reveal" id="timeText" style="--d:.2s" hidden></p>
+        <div class="countdown reveal" id="countdown" style="--d:.3s" role="timer" hidden>
+          <div class="cd-unit"><span class="cd-num" data-unit="days">00</span><span class="cd-label" data-i18n="days"></span></div>
+          <div class="cd-unit"><span class="cd-num" data-unit="hours">00</span><span class="cd-label" data-i18n="hours"></span></div>
+          <div class="cd-unit"><span class="cd-num" data-unit="minutes">00</span><span class="cd-label" data-i18n="minutes"></span></div>
+          <div class="cd-unit"><span class="cd-num" data-unit="seconds">00</span><span class="cd-label" data-i18n="seconds"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--beige" id="venue" hidden>
+      <div class="section__inner">
+        <div class="seal seal--sm reveal"><i></i></div>
+        <p class="eyebrow reveal" data-i18n="venue" style="--d:.1s"></p>
+        <h2 class="h2 reveal" id="venueName" style="--d:.15s" hidden></h2>
+        <p class="addr reveal" id="venueAddress" style="--d:.2s" hidden></p>
+        <a class="btn reveal" id="directions" style="--d:.3s" target="_blank" rel="noopener noreferrer" hidden data-i18n="directions"></a>
+      </div>
+    </section>
+
+    <section class="section" id="schedule" hidden>
+      <div class="section__inner">
+        <p class="eyebrow reveal" data-i18n="schedule"></p>
+        <ol class="schedule reveal" id="scheduleList" style="--d:.1s"></ol>
+      </div>
+    </section>
+
+    <section class="section section--beige" id="message" hidden>
+      <div class="section__inner">
+        <div class="orn reveal" aria-hidden="true"><i></i><b></b><i></i></div>
+        <p class="note reveal" id="personalMessage" style="--d:.1s"></p>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="rsvp" hidden>
+      <div class="section__inner">
+        <p class="eyebrow reveal" data-i18n="rsvp"></p>
+        <p class="rsvp-text reveal" id="rsvpText" style="--d:.1s"></p>
+      </div>
+    </section>
+
+    <!-- Shown only while config.js is still empty -->
+    <section class="section setup" id="setup" hidden>
+      <div class="section__inner">
+        <p class="eyebrow" data-i18n="setupTitle"></p>
+        <p class="setup__text" data-i18n="setupText"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating controls -->
+  <div class="controls" id="controls" hidden>
+    <button class="ctrl ctrl--music" id="musicBtn" type="button" hidden>
+      <span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <button class="ctrl ctrl--lang" id="langBtn" type="button"></button>
+  </div>
+
+  <script>
+/* ==========================================================================
+   WEDDING CONFIGURATION — the only file you need to edit.
+
+   - Every field starts empty. Empty fields are hidden automatically.
+   - Any text field can be a plain string, or an object with both languages:
+       groomName: { ar: "…", en: "…" }
+   - weddingDate: "YYYY-MM-DD"   (e.g. 2027-06-12)  → enables the countdown
+   - weddingTime: "HH:MM" 24-hour (e.g. 18:30)      → shown in the visitor's language
+   - eventSchedule: one item per line, "time | title"
+                    (or an array of { time, title })
+   - googleMapsLink: a full link starting with https://
+   - musicFile: path to your audio, e.g. "assets/audio/music.mp3"
+   - language: "ar", "en", or "" (auto-detect from the visitor's device)
+   ========================================================================== */
+
+window.WEDDING_CONFIG = {
+  groomName: "",
+  brideName: "",
+  weddingDate: "",
+  weddingTime: "",
+  venueName: "",
+  venueAddress: "",
+  googleMapsLink: "",
+  invitationMessage: "",
+  personalMessage: "",
+  eventSchedule: "",
+  rsvpDetails: "",
+  musicFile: "",
+  language: ""
+};
+
+</script>
+  <script>
+/* ==========================================================================
+   Digital Wedding Invitation — behaviour
+   Reads window.WEDDING_CONFIG (js/config.js). No dependencies.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var C = window.WEDDING_CONFIG || {};
+
+  /* ---------- UI strings ---------- */
+  var I18N = {
+    en: {
+      coverLabel: 'You are invited', coverTitle1: 'Wedding', coverTitle2: 'Invitation',
+      open: 'Open Invitation', ofWedding: 'The Wedding of', saveTheDate: 'Save the Date',
+      days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds',
+      venue: 'The Venue', directions: 'Get Directions', schedule: 'Schedule', rsvp: 'RSVP',
+      musicOn: 'Mute music', musicOff: 'Play music', switchTo: 'العربية', switchLabel: 'Switch to Arabic',
+      pageTitle: 'Wedding Invitation',
+      setupTitle: 'Almost ready',
+      setupText: 'Add your wedding details in js/config.js. Empty fields stay hidden.'
+    },
+    ar: {
+      coverLabel: 'أنتم مدعوون', coverTitle1: 'دعوة', coverTitle2: 'زفاف',
+      open: 'افتح الدعوة', ofWedding: 'حفل زفاف', saveTheDate: 'موعد الزفاف',
+      days: 'أيام', hours: 'ساعات', minutes: 'دقائق', seconds: 'ثوانٍ',
+      venue: 'المكان', directions: 'الاتجاهات', schedule: 'برنامج الحفل', rsvp: 'تأكيد الحضور',
+      musicOn: 'إيقاف الموسيقى', musicOff: 'تشغيل الموسيقى', switchTo: 'English', switchLabel: 'التبديل إلى الإنجليزية',
+      pageTitle: 'دعوة زفاف',
+      setupTitle: 'على وشك الانتهاء',
+      setupText: 'أضف تفاصيل الزفاف في ملف js/config.js. الحقول الفارغة تبقى مخفية.'
+    }
+  };
+
+  var lang = 'en';
+  var countdownTimer = null;
+  var audio = null;
+  var playing = false;
+  var resumeOnVisible = false;
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+
+  /* ---------- Config helpers ---------- */
+  // A value may be a string, an array, or { ar, en }.
+  function pick(v) {
+    if (v && typeof v === 'object' && !Array.isArray(v) && ('ar' in v || 'en' in v)) {
+      return v[lang] || v.en || v.ar || '';
+    }
+    return v == null ? '' : v;
+  }
+  function text(key) {
+    var v = pick(C[key]);
+    return typeof v === 'string' ? v.trim() : '';
+  }
+  function t(key) { return I18N[lang][key] || ''; }
+
+  function setText(sel, val) {
+    var el = $(sel);
+    el.textContent = val;
+    el.hidden = !val;
+  }
+
+  function safeUrl(u) { return /^https?:\/\//i.test(u) ? u : ''; }
+
+  /* ---------- Language ---------- */
+  function detectLang() {
+    var saved = '';
+    try { saved = localStorage.getItem('invite-lang') || ''; } catch (e) {}
+    if (saved === 'ar' || saved === 'en') return saved;
+    if (C.language === 'ar' || C.language === 'en') return C.language;
+    return (navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+  }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    $$('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
+    var lb = $('#langBtn');
+    lb.textContent = t('switchTo');
+    lb.setAttribute('aria-label', t('switchLabel'));
+    lb.setAttribute('lang', lang === 'ar' ? 'en' : 'ar');
+    updateMusicLabel();
+    render();
+  }
+
+  /* ---------- Date / time ---------- */
+  function parseDate() {
+    var raw = text('weddingDate');
+    var m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(raw);
+    var tm = /^(\d{1,2}):(\d{2})/.exec(text('weddingTime'));
+    var h = tm ? +tm[1] : 0, mi = tm ? +tm[2] : 0;
+    var date = null;
+    if (m) {
+      var d = new Date(+m[1], +m[2] - 1, +m[3], h, mi);
+      if (d.getFullYear() === +m[1] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[3]) date = d;
+    }
+    return { raw: raw, date: date, time: tm ? new Date(2000, 0, 1, h, mi) : null };
+  }
+
+  function locale() { return lang === 'ar' ? 'ar-EG-u-ca-gregory' : 'en-US'; }
+
+  /* ---------- Countdown ---------- */
+  function stopCountdown() {
+    if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+  }
+
+  function startCountdown(target) {
+    stopCountdown();
+    var box = $('#countdown');
+    var nf = new Intl.NumberFormat(lang === 'ar' ? 'ar-EG' : 'en-US', { minimumIntegerDigits: 2, useGrouping: false });
+    var nodes = {};
+    $$('.cd-num', box).forEach(function (n) { nodes[n.getAttribute('data-unit')] = n; });
+
+    function tick() {
+      var diff = target.getTime() - Date.now();
+      if (diff <= 0) { box.hidden = true; stopCountdown(); return; }
+      var s = Math.floor(diff / 1000);
+      var vals = {
+        days: Math.floor(s / 86400),
+        hours: Math.floor((s % 86400) / 3600),
+        minutes: Math.floor((s % 3600) / 60),
+        seconds: s % 60
+      };
+      for (var k in vals) {
+        var out = nf.format(vals[k]);
+        if (nodes[k].textContent !== out) nodes[k].textContent = out;
+      }
+      box.hidden = false;
+    }
+    tick();
+    if (!box.hidden) countdownTimer = setInterval(tick, 1000);
+  }
+
+  /* ---------- Rich text bits ---------- */
+  function linkify(el, str) {
+    el.textContent = '';
+    var parts = str.split(/(https?:\/\/[^\s]+|[\w.+-]+@[\w-]+\.[\w.-]+)/g);
+    parts.forEach(function (p) {
+      if (!p) return;
+      if (/^https?:\/\//i.test(p)) {
+        var a = document.createElement('a');
+        a.href = p; a.textContent = p; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        el.appendChild(a);
+      } else if (/^[\w.+-]+@[\w-]+\.[\w.-]+$/.test(p)) {
+        var m = document.createElement('a');
+        m.href = 'mailto:' + p; m.textContent = p;
+        el.appendChild(m);
+      } else {
+        el.appendChild(document.createTextNode(p));
+      }
+    });
+  }
+
+  function scheduleItems() {
+    var v = pick(C.eventSchedule);
+    var out = [];
+    if (typeof v === 'string') {
+      v.split(/\r?\n/).forEach(function (line) {
+        line = line.trim();
+        if (!line) return;
+        var m = /^(.*?)\s*(?:\||\s[–—-]\s)\s*(.+)$/.exec(line);
+        out.push(m && m[1] ? { time: m[1], title: m[2] } : { time: '', title: line });
+      });
+    } else if (Array.isArray(v)) {
+      v.forEach(function (it) {
+        if (typeof it === 'string' && it.trim()) out.push({ time: '', title: it.trim() });
+        else if (it && typeof it === 'object') {
+          var title = String(pick(it.title) || '').trim();
+          var time = String(pick(it.time) || '').trim();
+          if (title || time) out.push({ time: time, title: title });
+        }
+      });
+    }
+    return out;
+  }
+
+  /* ---------- Render ---------- */
+  function show(id, on) { $(id).hidden = !on; return on; }
+
+  function render() {
+    var groom = text('groomName'), bride = text('brideName');
+    var shown = 0;
+
+    // Document title + cover names
+    var names = [groom, bride].filter(Boolean).join(' & ');
+    document.title = names ? names + ' — ' + t('pageTitle') : t('pageTitle');
+    setText('#coverNames', names);
+
+    // Hero
+    setText('#groom', groom);
+    setText('#bride', bride);
+    $('#amp').hidden = !(groom && bride);
+    $('#names').hidden = !names;
+    var msg = text('invitationMessage');
+    setText('#invitationMessage', msg);
+    var heroOn = show('#hero', !!(names || msg));
+
+    // Date + countdown
+    var info = parseDate();
+    var dateStr = info.date
+      ? new Intl.DateTimeFormat(locale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(info.date)
+      : info.raw;
+    var timeStr = info.time
+      ? new Intl.DateTimeFormat(locale(), { hour: 'numeric', minute: '2-digit' }).format(info.time)
+      : text('weddingTime');
+    setText('#dateText', dateStr);
+    setText('#timeText', timeStr);
+    var dateOn = show('#date', !!(dateStr || timeStr));
+    if (info.date && info.date.getTime() > Date.now()) startCountdown(info.date);
+    else { stopCountdown(); $('#countdown').hidden = true; }
+
+    // Venue
+    var vName = text('venueName'), vAddr = text('venueAddress'), map = safeUrl(text('googleMapsLink'));
+    setText('#venueName', vName);
+    setText('#venueAddress', vAddr);
+    var dir = $('#directions');
+    if (map) dir.href = map; else dir.removeAttribute('href');
+    dir.hidden = !map;
+    var venueOn = show('#venue', !!(vName || vAddr || map));
+
+    // Schedule
+    var items = scheduleItems();
+    var list = $('#scheduleList');
+    list.textContent = '';
+    items.forEach(function (it) {
+      var li = document.createElement('li');
+      if (it.time && it.title) {
+        var tt = document.createElement('span'); tt.className = 't'; tt.textContent = it.time;
+        var dd = document.createElement('span'); dd.className = 'd'; dd.textContent = it.title;
+        li.appendChild(tt); li.appendChild(dd);
+      } else {
+        li.className = 'solo';
+        var one = document.createElement('span'); one.className = 'd'; one.textContent = it.title || it.time;
+        li.appendChild(one);
+      }
+      list.appendChild(li);
+    });
+    var schedOn = show('#schedule', items.length > 0);
+
+    // Personal message
+    var pm = text('personalMessage');
+    $('#personalMessage').textContent = pm;
+    var pmOn = show('#message', !!pm);
+
+    // RSVP
+    var rsvp = text('rsvpDetails');
+    linkify($('#rsvpText'), rsvp);
+    var rsvpOn = show('#rsvp', !!rsvp);
+
+    // Scroll cue only if something follows the hero
+    $('#scrollCue').hidden = !(heroOn && (dateOn || venueOn || schedOn || pmOn || rsvpOn));
+
+    // Nothing filled in yet
+    shown = [heroOn, dateOn, venueOn, schedOn, pmOn, rsvpOn].filter(Boolean).length;
+    show('#setup', shown === 0);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  function initReveal() {
+    var els = $$('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  /* ---------- Music ---------- */
+  function updateMusicLabel() {
+    var b = $('#musicBtn');
+    b.classList.toggle('is-playing', playing);
+    b.setAttribute('aria-pressed', String(playing));
+    b.setAttribute('aria-label', playing ? t('musicOn') : t('musicOff'));
+  }
+  function setPlaying(v) { playing = v; updateMusicLabel(); }
+
+  function setupMusic() {
+    var file = typeof C.musicFile === 'string' ? C.musicFile.trim() : '';
+    var btn = $('#musicBtn');
+    if (!file) { btn.hidden = true; return; }
+    audio = new Audio();
+    audio.preload = 'none';           // nothing is downloaded before the visitor interacts
+    audio.loop = true;
+    audio.volume = 0.6;
+    audio.src = file;
+    audio.addEventListener('error', function () { audio = null; setPlaying(false); btn.hidden = true; });
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      if (!audio) return;
+      if (playing) { audio.pause(); setPlaying(false); } else { startMusic(); }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (!audio) return;
+      if (document.hidden && playing) { audio.pause(); resumeOnVisible = true; }
+      else if (!document.hidden && resumeOnVisible) { resumeOnVisible = false; startMusic(); }
+    });
+    updateMusicLabel();
+  }
+
+  function startMusic() {
+    if (!audio) return;
+    var p = audio.play();
+    if (p && p.then) p.then(function () { setPlaying(true); }, function () { setPlaying(false); });
+    else setPlaying(true);
+  }
+
+  /* ---------- Opening ---------- */
+  function openInvitation() {
+    var cover = $('#cover');
+    var main = $('#invitation');
+    if (cover.classList.contains('is-opening')) return;
+
+    cover.classList.add('is-opening');
+    startMusic();                                  // allowed: triggered by the visitor's click
+    main.removeAttribute('inert');
+    document.body.classList.remove('is-locked');
+    window.scrollTo(0, 0);
+
+    var delay = reducedMotion ? 50 : 700;
+    setTimeout(initReveal, delay);
+    setTimeout(function () {
+      $('#controls').hidden = false;
+      main.focus({ preventScroll: true });
+    }, reducedMotion ? 50 : 1500);
+    setTimeout(function () { cover.hidden = true; }, reducedMotion ? 100 : 1900);
+  }
+
+  /* ---------- Init ---------- */
+  function init() {
+    // Loading screen: short, and never longer than needed
+    var minWait = new Promise(function (r) { setTimeout(r, 900); });
+    var fonts = document.fonts && document.fonts.ready
+      ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 2500); })])
+      : Promise.resolve();
+    Promise.all([minWait, fonts]).then(function () {
+      var loader = $('#loader');
+      document.body.classList.add('is-ready');
+      loader.classList.add('is-done');
+      setTimeout(function () { loader.remove(); }, 800);
+      $('#openBtn').focus({ preventScroll: true });
+    });
+
+    lang = detectLang();
+    setupMusic();
+    applyLang();
+
+    $('#openBtn').addEventListener('click', openInvitation);
+    $('#langBtn').addEventListener('click', function () {
+      lang = lang === 'ar' ? 'en' : 'ar';
+      try { localStorage.setItem('invite-lang', lang); } catch (e) {}
+      applyLang();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
+</body>
+</html>
